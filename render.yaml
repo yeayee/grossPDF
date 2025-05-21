@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: grossPDF
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "bash start.sh"

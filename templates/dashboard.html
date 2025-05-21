@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        table {
+            table-layout: fixed; /* 固定表格布局，使单元格遵循内容换行规则 */
+            width: 100%; /* 让表格宽度填充父容器 */
+        }
+
+        td {
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word; /* 确保长文本换行 */
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>后台管理</h2>
+    <p>欢迎，{{ current_user.username }}！</p>
+    <a href="{{ url_for('auth.publish') }}" class="btn btn-primary mb-3">发布新书籍</a>
+     <a href="{{ url_for('auth.withdraw') }}" class="btn btn-info mb-3">用户提现记录</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger mb-3">退出</a>
+
+    <h3>已发布书籍</h3>
+    {% if books %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>书籍名称</th>
+                <th>封面</th>
+                <th>PDF 文件</th>
+                <th>简介</th>
+                <th>操作</th>
+                <th>单价</th>
+                <th>发布时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+               <tr>
+                <td><a href="{{ url_for('generate_referral', id=book.id) }}"  target="_blank"> {{ book.title }}</a></td>
+                <td>
+                    {% if book.cove %}
+                        <img src="data:image/png;base64,{{ book.cove }}" alt="{{ book.title }}" style="max-width: 100px;">
+                    {% else %}
+                        无封面
+                    {% endif %}
+                </td>
+                <td>
+                    {% if book.pdf_link %}
+                        {{book.pdf_link}}
+                    {% else %}
+                        无 PDF 文件
+                    {% endif %}
+                </td>
+                <td>{{ book.description }}</td>
+                <td>
+                    <a href="{{ url_for('auth.edit', book_id=book.id) }}" class="btn btn-sm btn-warning">编辑</a>
+                    <form action="{{ url_for('auth.delete', book_id=book.id) }}" method="POST" style="display:inline;">
+                        {{ delete_form.hidden_tag() }}
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('确定要删除吗？')">删除</button>
+                    </form>
+                </td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.published_at }}</td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% else %}
+        <p>暂无书籍，请发布新书籍！</p>
+    {% endif %}
+</div>
+{% endblock %}

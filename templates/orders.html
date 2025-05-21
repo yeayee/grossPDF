@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}orders{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        table {
+            table-layout: fixed; /* 固定表格布局，使单元格遵循内容换行规则 */
+            width: 100%; /* 让表格宽度填充父容器 */
+        }
+
+        td {
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word; /* 确保长文本换行 */
+        }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>wallet</th>
+                <th>amount</th>
+                <th>time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.wallet_prefix }}</td>
+                <td>{{ order.amount }}</td>
+                <td>{{ order.transaction_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

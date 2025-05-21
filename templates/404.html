@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .error-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    .error-content {
+        max-width: 600px;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .error-title {
+        font-size: 6rem;
+        font-weight: 700;
+        color: #dc3545;
+        margin-bottom: 1rem;
+    }
+    .error-message {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+    .btn-home {
+        border-radius: 8px;
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        background: #ffbf00;
+        border: none;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .btn-home:hover {
+        background: #b30000;
+        transform: translateY(-2px);
+    }
+    @media (max-width: 576px) {
+        .error-title {
+            font-size:見4rem;
+        }
+        .error-message {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<div class="error-container">
+    <div class="error-content">
+        <h1 class="error-title">404</h1>
+        <p class="error-message">抱歉，您访问的页面不存在！</p>
+        <a href="{{ url_for('home') }}" class="btn btn-home">返回首页</a>
+    </div>
+</div>
+{% endblock %}

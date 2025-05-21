@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}用户提现记录{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        table {
+            table-layout: fixed; /* 固定表格布局，使单元格遵循内容换行规则 */
+            width: 100%; /* 让表格宽度填充父容器 */
+        }
+
+        td {
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word; /* 确保长文本换行 */
+        }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">用户提现录入</h2>
+
+        <form method="POST" class="border p-4 rounded">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="mb-3">
+                <label for="referral_code" class="form-label">推荐码：</label>
+                <input type="text" class="form-control" id="referral_code" name="referral_code" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="wallet_address" class="form-label">推荐者钱包地址：</label>
+                <input type="text" class="form-control" id="wallet_address" name="wallet_address" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="amount" class="form-label">提取金额：</label>
+                <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">提交提现数据</button>
+        </form>
+
+        <h2 class="text-center mt-5">提现记录</h2>
+        <table class="table table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>推荐码</th>
+                    <th>钱包地址</th>
+                    <th>提取金额</th>
+                    <th>剩余金额</th>
+                    <th>提取时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for withdraw in withdraws %}
+                <tr>
+                    <td>{{ withdraw.referral_code }}</td>
+                    <td>{{ withdraw.wallet_address }}</td>
+                    <td>{{ withdraw.amount }}</td>
+                    <td>{{ withdraw.remaining_balance }}</td>
+                    <td>{{ withdraw.transaction_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}
