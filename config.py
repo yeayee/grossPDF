@@ -18,8 +18,8 @@ def create_app():
     
     
     # 通过环境变量获取 Supabase URL 和 API 密钥
-    SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://rvsezrqknwgnbbwfvzic.supabase.co')
-    SUPABASE_KEY = os.getenv('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2c2V6cnFrbndnbmJid2Z2emljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MjI5MjQsImV4cCI6MjA2MzI5ODkyNH0.TrYdoNWGJA1JJbluilGDvWiRZDsh9zZ3Kg-l8dPJwSQ')
+    SUPABASE_URL = os.getenv('SUPABASE_URL', 'https://rvse******zic.supabase.co')
+    SUPABASE_KEY = os.getenv('SUPABASE_KEY', '***********dXBhYmFzZSIsInJlZiI6InJ2c2V6cnFrbndnbmJid2Z2emljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3MjI5MjQsImV4cCI6MjA2MzI5ODkyNH0.TrYdoNWGJA1JJbluilGDvWiRZDsh9zZ3Kg-l8dPJwSQ')
 
     # 创建 Supabase 客户端
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
